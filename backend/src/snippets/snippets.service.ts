@@ -17,8 +17,11 @@ export class SnippetsService {
     return newSnippet.save();
   }
 
-  async findAll(queryDto: QuerySnippetDto): Promise<{ data: Snippet[]; total: number; page: number; limit: number }> {
-    const { q, tag, page = 1, limit = 10 } = queryDto;
+  async findAll(queryDto: QuerySnippetDto): Promise<{
+    data: Snippet[];
+    meta: { total: number; page: number; limit: number; totalPages: number; hasNextPage: boolean; hasPreviousPage: boolean; }
+  }> {
+    const { q, tag, page = 1, limit = 9 } = queryDto;
     const skip = (page - 1) * limit;
 
     const filter: Record<string, any> = {};
@@ -36,7 +39,19 @@ export class SnippetsService {
       this.snippetModel.countDocuments(filter).exec(),
     ]);
 
-    return { data, total, page, limit };
+    const totalPages = Math.ceil(total / limit);
+
+    return {
+      data,
+      meta: {
+        total,
+        page,
+        limit,
+        totalPages,
+        hasNextPage: page < totalPages,
+        hasPreviousPage: page > 1
+      }
+    };
   }
 
   async findOne(id: string): Promise<Snippet> {

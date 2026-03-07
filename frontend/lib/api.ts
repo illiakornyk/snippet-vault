@@ -12,9 +12,14 @@ export interface Snippet {
 
 export interface PaginatedSnippets {
   data: Snippet[];
-  total: number;
-  page: number;
-  limit: number;
+  meta: {
+    total: number;
+    page: number;
+    limit: number;
+    totalPages: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean;
+  };
 }
 
 export const api = {
