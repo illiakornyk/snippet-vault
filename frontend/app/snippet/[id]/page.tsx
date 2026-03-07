@@ -2,6 +2,7 @@ import { api } from '@/lib/api';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { DeleteButton } from '@/components/DeleteButton';
+import { formatDateTime } from '@/lib/utils';
 
 export default async function SnippetDetails({ params }: { params: Promise<{ id: string }> }) {
   let snippet;
@@ -28,6 +29,17 @@ export default async function SnippetDetails({ params }: { params: Promise<{ id:
               {snippet.type}
             </span>
           </div>
+        </div>
+
+        <div className="mt-4 flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+          <div>
+            Created: <span className="font-medium text-gray-700 dark:text-gray-300">{formatDateTime(snippet.createdAt)}</span>
+          </div>
+          {snippet.updatedAt !== snippet.createdAt && (
+            <div>
+              Updated: <span className="font-medium text-gray-700 dark:text-gray-300">{formatDateTime(snippet.updatedAt)}</span>
+            </div>
+          )}
         </div>
       </div>
 

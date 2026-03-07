@@ -2,6 +2,7 @@ import { api } from '@/lib/api';
 import Link from 'next/link';
 import { SearchFilter } from '@/components/SearchFilter';
 import { PaginationTop, PaginationBottom } from '@/components/Pagination';
+import { formatDate } from '@/lib/utils';
 
 export default async function Home({
   searchParams,
@@ -78,12 +79,17 @@ export default async function Home({
               >
                 <div>
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                    <h3 className="font-semibold text-lg line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" title={snippet.title}>
                       {snippet.title}
                     </h3>
-                    <span className="inline-flex items-center shrink-0 ml-2 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-200">
-                      {snippet.type}
-                    </span>
+                    <div className="flex flex-col items-end shrink-0 ml-2">
+                      <span className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-800 dark:text-gray-200">
+                        {snippet.type}
+                      </span>
+                      <span className="text-[10px] text-gray-400 dark:text-gray-500 mt-1">
+                        {formatDate(snippet.createdAt)}
+                      </span>
+                    </div>
                   </div>
                   <p className="text-gray-500 dark:text-gray-400 text-sm line-clamp-3 mb-4">
                     {snippet.content}
