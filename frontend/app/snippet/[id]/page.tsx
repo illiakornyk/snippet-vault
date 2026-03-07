@@ -1,6 +1,7 @@
 import { api } from '@/lib/api';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { DeleteButton } from '@/components/DeleteButton';
 
 export default async function SnippetDetails({ params }: { params: Promise<{ id: string }> }) {
   let snippet;
@@ -54,12 +55,13 @@ export default async function SnippetDetails({ params }: { params: Promise<{ id:
       </div>
 
       <div className="mt-8 flex justify-end gap-3">
-        <button className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-md border border-red-200 transition-colors">
-          Delete
-        </button>
-        <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition-colors">
+        <DeleteButton id={snippet._id} />
+        <Link
+          href={`/snippet/${snippet._id}/edit`}
+          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition-colors"
+        >
           Edit Snippet
-        </button>
+        </Link>
       </div>
     </div>
   );
