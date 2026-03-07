@@ -1,20 +1,4 @@
-import { IsArray, IsEnum, IsOptional, IsString } from 'class-validator';
+import { PartialType } from '@nestjs/swagger';
+import { CreateSnippetDto } from './create-snippet.dto';
 
-export class UpdateSnippetDto {
-  @IsString()
-  @IsOptional()
-  title?: string;
-
-  @IsString()
-  @IsOptional()
-  content?: string;
-
-  @IsArray()
-  @IsString({ each: true })
-  @IsOptional()
-  tags?: string[];
-
-  @IsEnum(['link', 'note', 'command'])
-  @IsOptional()
-  type?: string;
-}
+export class UpdateSnippetDto extends PartialType(CreateSnippetDto) {}
