@@ -66,11 +66,11 @@ export default async function SnippetDetails({ params }: { params: Promise<{ id:
         )}
       </div>
 
-      <div className="mt-8 flex justify-end gap-3">
+      <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-end gap-3 w-full">
         <DeleteButton id={snippet._id} />
         <Link
           href={`/snippet/${snippet._id}/edit`}
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition-colors"
+          className="w-full sm:w-auto text-center px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition-colors"
         >
           Edit Snippet
         </Link>

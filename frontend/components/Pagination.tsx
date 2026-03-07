@@ -20,16 +20,16 @@ function PageNav({
   router,
 }: any) {
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto mt-4 sm:mt-0">
       <button
         onClick={() => router.push(createPageURL(currentPage - 1))}
         disabled={!hasPreviousPage}
-        className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="relative inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full sm:w-auto"
       >
         Previous
       </button>
 
-      <div className="flex items-center gap-1 hidden sm:flex">
+      <div className="flex items-center justify-center gap-1 hidden sm:flex">
          <span className="px-3 py-2 text-sm text-gray-700 dark:text-gray-300">
            Page <span className="font-semibold">{currentPage}</span> of {totalPages}
          </span>
@@ -38,7 +38,7 @@ function PageNav({
       <button
          onClick={() => router.push(createPageURL(currentPage + 1))}
          disabled={!hasNextPage}
-         className="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+         className="relative inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full sm:w-auto"
       >
         Next
       </button>
@@ -136,7 +136,7 @@ export function PaginationBottom({
   if (total === 0 || totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-end mt-8 py-4 border-t border-gray-200 dark:border-gray-800">
+    <div className="flex items-center justify-center sm:justify-end mt-8 py-4 border-t border-gray-200 dark:border-gray-800 w-full">
       <PageNav
         currentPage={currentPage}
         totalPages={totalPages}
