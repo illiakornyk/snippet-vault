@@ -2,10 +2,11 @@ import { api } from '@/lib/api';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
-export default async function SnippetDetails({ params }: { params: { id: string } }) {
+export default async function SnippetDetails({ params }: { params: Promise<{ id: string }> }) {
   let snippet;
   try {
-    snippet = await api.getSnippet(params.id);
+    const { id } = await params;
+    snippet = await api.getSnippet(id);
   } catch (error) {
     notFound();
   }
