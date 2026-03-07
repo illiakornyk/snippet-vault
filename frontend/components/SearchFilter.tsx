@@ -27,8 +27,8 @@ export function SearchFilter() {
   };
 
   return (
-    <form onSubmit={handleSearch} className="mb-6 bg-white dark:bg-gray-950 p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm flex flex-col sm:flex-row gap-4 items-end">
-      <div className="flex-1 w-full">
+    <form onSubmit={handleSearch} className="mb-6 bg-white dark:bg-gray-950 p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+      <div className="md:col-span-5 lg:col-span-6">
         <label htmlFor="search" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Search
         </label>
@@ -41,7 +41,7 @@ export function SearchFilter() {
           className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800"
         />
       </div>
-      <div className="flex-1 w-full sm:max-w-xs">
+      <div className="md:col-span-4 lg:col-span-4">
         <label htmlFor="tag" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
           Filter by Tag
         </label>
@@ -54,23 +54,22 @@ export function SearchFilter() {
           className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800"
         />
       </div>
-      <div className="flex gap-2 w-full sm:w-auto mt-2 sm:mt-0">
+      <div className="md:col-span-3 lg:col-span-2 flex gap-2 w-full mt-2 md:mt-0">
         <button
           type="submit"
-          className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition-colors"
+          className="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-md shadow-sm transition-colors"
         >
           Apply
         </button>
-        <button
-          type="button"
-          onClick={handleClear}
-          disabled={!searchParams.has('q') && !searchParams.has('tag')}
-          className={`flex-1 sm:flex-none px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-md transition-colors ${
-            searchParams.has('q') || searchParams.has('tag') ? 'visible' : 'invisible pointer-events-none'
-          }`}
-        >
-          Clear
-        </button>
+        {(searchParams.has('q') || searchParams.has('tag')) && (
+          <button
+            type="button"
+            onClick={handleClear}
+            className="flex-1 px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 rounded-md transition-colors"
+          >
+            Clear
+          </button>
+        )}
       </div>
     </form>
   );
