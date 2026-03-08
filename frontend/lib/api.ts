@@ -1,11 +1,13 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/snippets';
 
+export type SnippetType = 'link' | 'note' | 'command';
+
 export interface Snippet {
   _id: string;
   title: string;
   content: string;
   tags: string[];
-  type: 'link' | 'note' | 'command';
+  type: SnippetType;
   createdAt: string;
   updatedAt: string;
 }

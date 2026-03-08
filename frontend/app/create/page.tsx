@@ -14,7 +14,7 @@ export default function CreateSnippet() {
   const [tags, setTags] = useState('');
   const [type, setType] = useState<Snippet['type']>('note');
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     setError('');
 
@@ -40,8 +40,10 @@ export default function CreateSnippet() {
 
       router.push('/');
       router.refresh();
-    } catch (err: any) {
-      setError(err.message || 'Failed to create snippet');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to create snippet';
+      setError(message);
+    } finally {
       setLoading(false);
     }
   };

@@ -2,7 +2,7 @@ import { api } from '@/lib/api';
 import Link from 'next/link';
 import { SearchFilter } from '@/components/SearchFilter';
 import { PaginationTop, PaginationBottom } from '@/components/Pagination';
-import { formatDate } from '@/lib/utils';
+import { formatDate, getStringParam, getIntParam } from '@/lib/utils';
 
 export default async function Home({
   searchParams,
@@ -10,10 +10,10 @@ export default async function Home({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
   const resolvedParams = await searchParams;
-  const q = typeof resolvedParams.q === 'string' ? resolvedParams.q : undefined;
-  const tag = typeof resolvedParams.tag === 'string' ? resolvedParams.tag : undefined;
-  const page = typeof resolvedParams.page === 'string' ? parseInt(resolvedParams.page, 10) : 1;
-  const limit = typeof resolvedParams.limit === 'string' ? parseInt(resolvedParams.limit, 10) : 9;
+  const q = getStringParam(resolvedParams.q);
+  const tag = getStringParam(resolvedParams.tag);
+  const page = getIntParam(resolvedParams.page, 1);
+  const limit = getIntParam(resolvedParams.limit, 9);
 
   let snippetsResult;
   let errorMsg = null;
@@ -26,6 +26,8 @@ export default async function Home({
   const snippets = snippetsResult?.data || [];
   const meta = snippetsResult?.meta;
   const hasFilters = Boolean(q || tag);
+
+
 
   return (
     <div className="space-y-6">

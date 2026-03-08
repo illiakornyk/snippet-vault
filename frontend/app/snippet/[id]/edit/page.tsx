@@ -9,6 +9,7 @@ export default function EditSnippet({ params }: { params: Promise<{ id: string }
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
+
   const [id, setId] = useState<string | null>(null);
 
   const [title, setTitle] = useState('');
@@ -25,8 +26,8 @@ export default function EditSnippet({ params }: { params: Promise<{ id: string }
         setTitle(snippet.title);
         setContent(snippet.content);
         setTags(snippet.tags ? snippet.tags.join(', ') : '');
-        setType(snippet.type);
-      } catch (err: any) {
+        setType(snippet.type as Snippet['type']);
+      } catch (err: unknown) {
         setError('Failed to load snippet for editing. It may have been deleted.');
       } finally {
         setLoading(false);
@@ -35,7 +36,7 @@ export default function EditSnippet({ params }: { params: Promise<{ id: string }
     loadSnippet();
   }, [params]);
 
-  const handleSubmit = async (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SubmitEvent) => {
     e.preventDefault();
     setError('');
 
@@ -63,8 +64,10 @@ export default function EditSnippet({ params }: { params: Promise<{ id: string }
 
       router.push(`/snippet/${id}`);
       router.refresh();
-    } catch (err: any) {
-      setError(err.message || 'Failed to update snippet');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Failed to update snippet';
+      setError(message);
+    } finally {
       setSaving(false);
     }
   };
