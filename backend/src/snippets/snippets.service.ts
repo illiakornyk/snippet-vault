@@ -14,6 +14,9 @@ export class SnippetsService {
   ) {}
 
   async create(createSnippetDto: CreateSnippetDto): Promise<Snippet> {
+    if (createSnippetDto.tags) {
+      createSnippetDto.tags = [...new Set(createSnippetDto.tags)];
+    }
     const newSnippet = new this.snippetModel(createSnippetDto);
     return newSnippet.save();
   }
@@ -64,6 +67,9 @@ export class SnippetsService {
 
   async update(id: string, updateSnippetDto: UpdateSnippetDto): Promise<Snippet> {
     this.validateObjectId(id);
+    if (updateSnippetDto.tags) {
+      updateSnippetDto.tags = [...new Set(updateSnippetDto.tags)];
+    }
     const existingSnippet = await this.snippetModel
       .findByIdAndUpdate(id, updateSnippetDto, { returnDocument: 'after', runValidators: true })
       .exec();
