@@ -7,11 +7,10 @@ import { UpdateSnippetDto } from './dto/update-snippet.dto';
 import { Snippet, SnippetDocument } from './schemas/snippet.schema';
 import { PaginatedResult } from './interfaces/paginated-result.interface';
 
-
 @Injectable()
 export class SnippetsService {
   constructor(
-    @InjectModel(Snippet.name) private snippetModel: Model<SnippetDocument>,
+    @InjectModel(Snippet.name) private readonly snippetModel: Model<SnippetDocument>,
   ) {}
 
   async create(createSnippetDto: CreateSnippetDto): Promise<Snippet> {
