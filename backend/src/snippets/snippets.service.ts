@@ -65,7 +65,7 @@ export class SnippetsService {
   async update(id: string, updateSnippetDto: UpdateSnippetDto): Promise<Snippet> {
     this.validateObjectId(id);
     const existingSnippet = await this.snippetModel
-      .findByIdAndUpdate(id, updateSnippetDto, { new: true, runValidators: true })
+      .findByIdAndUpdate(id, updateSnippetDto, { returnDocument: 'after', runValidators: true })
       .exec();
 
     if (!existingSnippet) {
