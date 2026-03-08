@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  HttpStatus,
   Param,
   Patch,
   Post,
@@ -22,28 +23,28 @@ export class SnippetsController {
 
   @Post()
   @ApiOperation({ summary: 'Create a new snippet' })
-  @ApiResponse({ status: 201, description: 'The snippet has been successfully created.' })
+  @ApiResponse({ status: HttpStatus.CREATED, description: 'The snippet has been successfully created.' })
   create(@Body(new ValidationPipe({ transform: true })) createSnippetDto: CreateSnippetDto) {
     return this.snippetsService.create(createSnippetDto);
   }
 
   @Get()
   @ApiOperation({ summary: 'Get all snippets with pagination, search and filtering' })
-  @ApiResponse({ status: 200, description: 'Return all matching snippets.' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Return all matching snippets.' })
   findAll(@Query(new ValidationPipe({ transform: true })) queryDto: QuerySnippetDto) {
     return this.snippetsService.findAll(queryDto);
   }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a snippet by id' })
-  @ApiResponse({ status: 200, description: 'Return the requested snippet.' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'Return the requested snippet.' })
   findOne(@Param('id') id: string) {
     return this.snippetsService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Update a snippet by id' })
-  @ApiResponse({ status: 200, description: 'The snippet has been successfully updated.' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'The snippet has been successfully updated.' })
   update(
     @Param('id') id: string,
     @Body(new ValidationPipe({ transform: true })) updateSnippetDto: UpdateSnippetDto,
@@ -53,7 +54,7 @@ export class SnippetsController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a snippet by id' })
-  @ApiResponse({ status: 200, description: 'The snippet has been successfully deleted.' })
+  @ApiResponse({ status: HttpStatus.OK, description: 'The snippet has been successfully deleted.' })
   remove(@Param('id') id: string) {
     return this.snippetsService.remove(id);
   }
