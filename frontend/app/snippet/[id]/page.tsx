@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { DeleteButton } from '@/components/DeleteButton';
 import { formatDateTime } from '@/lib/utils';
+import { typeColors } from '@/components/SnippetCard';
 
 export default async function SnippetDetails({ params }: { params: Promise<{ id: string }> }) {
   let snippet;
@@ -25,7 +26,7 @@ export default async function SnippetDetails({ params }: { params: Promise<{ id:
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <h1 className="text-4xl font-extrabold tracking-tight">{snippet.title}</h1>
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center rounded-full bg-blue-100 px-3 py-0.5 text-sm font-semibold text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+            <span className={`inline-flex items-center rounded-full px-3 py-0.5 text-sm font-semibold ${typeColors[snippet.type] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'}`}>
               {snippet.type}
             </span>
           </div>
