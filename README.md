@@ -10,6 +10,14 @@ A minimalist web application for saving, tagging, and searching text snippets, l
 - **Responsive UI:** A modern, clean, responsive interface powered by Tailwind CSS with dark mode support.
 - **OpenAPI Documentation:** Auto-generated Swagger docs for the backend API.
 
+## Live Demo
+
+- **Frontend:** [https://snippet-vault-web.onrender.com/](https://snippet-vault-web.onrender.com/)
+- **Backend (Swagger):** [https://snippet-vault-api.onrender.com/api](https://snippet-vault-api.onrender.com/api#/)
+
+> [!NOTE]
+> These services are hosted on Render's free tier. Because of this, the first request after some inactivity may take up to 50 seconds or more to respond while the service "wakes up." If the app doesn't load immediately or shows an error, please wait a minute and refresh.
+
 ## Prerequisites
 
 - **Node.js** (v18+)

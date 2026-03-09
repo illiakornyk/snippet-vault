@@ -16,7 +16,11 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
-  const frontendUrl = configService.get<string>('FRONTEND_URL');
+  let frontendUrl = configService.get<string>('FRONTEND_URL');
+
+  if (frontendUrl && frontendUrl.endsWith('/')) {
+    frontendUrl = frontendUrl.slice(0, -1);
+  }
 
   app.enableCors({
     origin: frontendUrl,
