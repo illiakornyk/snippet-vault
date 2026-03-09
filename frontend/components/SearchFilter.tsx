@@ -10,7 +10,7 @@ export function SearchFilter() {
   const [q, setQ] = useState(searchParams.get('q') || '');
   const [tag, setTag] = useState(searchParams.get('tag') || '');
 
-  const handleSearch = (e: React.SyntheticEvent) => {
+  const handleSearch = (e: React.SubmitEvent) => {
     e.preventDefault();
     const params = new URLSearchParams();
     if (q.trim()) params.set('q', q.trim());

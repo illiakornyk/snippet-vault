@@ -5,11 +5,11 @@ import { PaginationTop, PaginationBottom } from '@/components/Pagination';
 import { SnippetCard } from '@/components/SnippetCard';
 import { getStringParam, getIntParam } from '@/lib/utils';
 
-export default async function Home({
-  searchParams,
-}: {
+interface HomeProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+}
+
+export default async function Home({ searchParams }: HomeProps) {
   const resolvedParams = await searchParams;
   const q = getStringParam(resolvedParams.q);
   const tag = getStringParam(resolvedParams.tag);

@@ -35,9 +35,10 @@ export const api = {
       });
     }
 
-    const response = await fetch(url.toString(), { cache: 'no-store' });
+    const response = await fetch(url, { cache: 'no-store' });
     if (!response.ok) {
-      throw new Error('Failed to fetch snippets');
+      const body = await response.json().catch(() => null);
+      throw new Error(body?.message || 'Failed to fetch snippets');
     }
     return response.json() as Promise<PaginatedSnippets>;
   },
@@ -45,7 +46,8 @@ export const api = {
   async getSnippet(id: string) {
     const response = await fetch(`${API_URL}/${id}`, { cache: 'no-store' });
     if (!response.ok) {
-      throw new Error(`Failed to fetch snippet ${id}`);
+      const body = await response.json().catch(() => null);
+      throw new Error(body?.message || `Failed to fetch snippet ${id}`);
     }
     return response.json() as Promise<Snippet>;
   },
@@ -59,7 +61,8 @@ export const api = {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw new Error('Failed to create snippet');
+      const body = await response.json().catch(() => null);
+      throw new Error(body?.message || 'Failed to create snippet');
     }
     return response.json() as Promise<Snippet>;
   },
@@ -73,7 +76,8 @@ export const api = {
       body: JSON.stringify(data),
     });
     if (!response.ok) {
-      throw new Error(`Failed to update snippet ${id}`);
+      const body = await response.json().catch(() => null);
+      throw new Error(body?.message || `Failed to update snippet ${id}`);
     }
     return response.json() as Promise<Snippet>;
   },
@@ -83,7 +87,8 @@ export const api = {
       method: 'DELETE',
     });
     if (!response.ok) {
-      throw new Error(`Failed to delete snippet ${id}`);
+      const body = await response.json().catch(() => null);
+      throw new Error(body?.message || `Failed to delete snippet ${id}`);
     }
     return response.json() as Promise<Snippet>;
   },
