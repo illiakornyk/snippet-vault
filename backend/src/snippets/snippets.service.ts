@@ -28,7 +28,8 @@ export class SnippetsService {
     const filter: Record<string, any> = {};
 
     if (q) {
-      filter.$text = { $search: q };
+      const regex = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
+      filter.$or = [{ title: regex }, { content: regex }];
     }
 
     if (tag) {

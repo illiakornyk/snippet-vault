@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from 'next/navigation';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 
 export function SearchFilter() {
   const router = useRouter();
@@ -61,7 +61,7 @@ export function SearchFilter() {
         >
           Apply
         </button>
-        {(searchParams.has('q') || searchParams.has('tag')) && (
+        {(q || tag) && (
           <button
             type="button"
             onClick={handleClear}
