@@ -41,7 +41,7 @@ export function SnippetCard({ snippet }: SnippetCardProps) {
 
       {snippet.tags && snippet.tags.length > 0 && (
         <div className="flex flex-wrap gap-2 mt-auto pt-4 border-t border-gray-100 dark:border-gray-900">
-          {snippet.tags.map((tag) => (
+          {snippet.tags.slice(0, 3).map((tag) => (
             <span
               key={tag}
               className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-900/30 dark:text-blue-400 dark:ring-blue-400/30"
@@ -49,6 +49,11 @@ export function SnippetCard({ snippet }: SnippetCardProps) {
               {tag}
             </span>
           ))}
+          {snippet.tags.length > 3 && (
+            <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-400/20">
+              +{snippet.tags.length - 3}
+            </span>
+          )}
         </div>
       )}
     </Link>
