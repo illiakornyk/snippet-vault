@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { api } from '@/lib/api';
 import { useRouter } from 'next/navigation';
@@ -18,7 +18,7 @@ export function DeleteButton({ id }: { id: string }) {
       await api.deleteSnippet(id);
       router.push('/');
       router.refresh();
-    } catch (error) {
+    } catch {
       alert('Failed to delete snippet');
       setIsDeleting(false);
     }

@@ -18,10 +18,15 @@ export function formatDateTime(dateString: string): string {
   }).format(date);
 }
 
-export function getStringParam(value: string | string[] | undefined): string | undefined {
+export function getStringParam(
+  value: string | string[] | undefined,
+): string | undefined {
   return typeof value === 'string' ? value : undefined;
 }
 
-export function getIntParam(value: string | string[] | undefined, fallback: number): number {
+export function getIntParam(
+  value: string | string[] | undefined,
+  fallback: number,
+): number {
   return typeof value === 'string' ? parseInt(value, 10) : fallback;
 }

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { SnippetType } from '@/lib/api';
 import { useRouter } from 'next/navigation';
@@ -29,12 +29,14 @@ interface SnippetFormProps {
 }
 
 function parseTags(tagsString: string): string[] {
-  return Array.from(new Set(
-    tagsString
-      .split(',')
-      .map((t) => t.trim())
-      .filter((t) => t.length > 0)
-  ));
+  return Array.from(
+    new Set(
+      tagsString
+        .split(',')
+        .map((t) => t.trim())
+        .filter((t) => t.length > 0),
+    ),
+  );
 }
 
 export function SnippetForm({
@@ -75,7 +77,8 @@ export function SnippetForm({
         type,
       });
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Something went wrong';
+      const message =
+        err instanceof Error ? err.message : 'Something went wrong';
       setError(message);
     } finally {
       setSubmitting(false);
@@ -94,7 +97,10 @@ export function SnippetForm({
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            htmlFor="title"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Title *
           </label>
           <input
@@ -109,7 +115,10 @@ export function SnippetForm({
         </div>
 
         <div>
-          <label htmlFor="type" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            htmlFor="type"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Type *
           </label>
           <select
@@ -126,7 +135,10 @@ export function SnippetForm({
         </div>
 
         <div>
-          <label htmlFor="tags" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            htmlFor="tags"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Tags (comma separated)
           </label>
           <input
@@ -140,7 +152,10 @@ export function SnippetForm({
         </div>
 
         <div>
-          <label htmlFor="content" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label
+            htmlFor="content"
+            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+          >
             Content *
           </label>
           <textarea

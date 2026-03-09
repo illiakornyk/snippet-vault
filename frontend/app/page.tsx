@@ -20,15 +20,13 @@ export default async function Home({ searchParams }: HomeProps) {
   let errorMsg: string | null = null;
   try {
     snippetsResult = await api.getSnippets({ q, tag, page, limit });
-  } catch (error) {
+  } catch {
     errorMsg = 'Cannot reach server';
   }
 
   const snippets = snippetsResult?.data || [];
   const meta = snippetsResult?.meta;
   const hasFilters = Boolean(q || tag);
-
-
 
   function renderContent() {
     if (errorMsg) {
@@ -46,7 +44,7 @@ export default async function Home({ searchParams }: HomeProps) {
           <h2 className="text-xl font-semibold mb-2">No snippets found</h2>
           <p className="text-gray-500 mb-6">
             {hasFilters
-              ? "No snippets match your applied search filters."
+              ? 'No snippets match your applied search filters.'
               : "You don't have any snippets saved yet."}
           </p>
           {!hasFilters && (

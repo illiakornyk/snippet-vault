@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -13,7 +13,9 @@ export function Header() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-white font-bold text-base">
             SV
           </div>
-          <span className="text-xl font-bold tracking-tight">Snippet Vault</span>
+          <span className="text-xl font-bold tracking-tight">
+            Snippet Vault
+          </span>
         </Link>
         {isFormPage ? (
           <Link

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { PageNav } from './PageNav';
@@ -11,8 +11,6 @@ export interface PaginationProps {
   hasPreviousPage: boolean;
   hasNextPage: boolean;
 }
-
-
 
 const PAGE_LIMITS = [6, 9, 12, 15, 18];
 
@@ -54,13 +52,20 @@ export function PaginationTop({
     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mt-6 mb-4">
       <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
         <span className="text-sm text-gray-700 dark:text-gray-300">
-          Showing <span className="font-semibold">{(currentPage - 1) * limit + 1}</span> to{' '}
-          <span className="font-semibold">{Math.min(currentPage * limit, total)}</span> of{' '}
-          <span className="font-semibold">{total}</span> results
+          Showing{' '}
+          <span className="font-semibold">{(currentPage - 1) * limit + 1}</span>{' '}
+          to{' '}
+          <span className="font-semibold">
+            {Math.min(currentPage * limit, total)}
+          </span>{' '}
+          of <span className="font-semibold">{total}</span> results
         </span>
 
         <div className="flex items-center gap-2">
-          <label htmlFor="limit" className="text-sm text-gray-500 dark:text-gray-400">
+          <label
+            htmlFor="limit"
+            className="text-sm text-gray-500 dark:text-gray-400"
+          >
             Per page:
           </label>
           <select

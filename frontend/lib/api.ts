@@ -1,4 +1,5 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/snippets';
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/snippets';
 
 export type SnippetType = 'link' | 'note' | 'command';
 
@@ -25,7 +26,12 @@ export interface PaginatedSnippets {
 }
 
 export const api = {
-  async getSnippets(params?: { q?: string; tag?: string; page?: number; limit?: number }) {
+  async getSnippets(params?: {
+    q?: string;
+    tag?: string;
+    page?: number;
+    limit?: number;
+  }) {
     const url = new URL(API_URL);
     if (params) {
       Object.entries(params).forEach(([key, value]) => {

@@ -5,12 +5,16 @@ import { DeleteButton } from '@/components/DeleteButton';
 import { formatDateTime } from '@/lib/utils';
 import { typeColors } from '@/components/SnippetCard';
 
-export default async function SnippetDetails({ params }: { params: Promise<{ id: string }> }) {
+export default async function SnippetDetails({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   let snippet;
   try {
     const { id } = await params;
     snippet = await api.getSnippet(id);
-  } catch (error) {
+  } catch {
     notFound();
   }
 
@@ -24,9 +28,13 @@ export default async function SnippetDetails({ params }: { params: Promise<{ id:
           ← Back to snippets
         </Link>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <h1 className="text-4xl font-extrabold tracking-tight">{snippet.title}</h1>
+          <h1 className="text-4xl font-extrabold tracking-tight">
+            {snippet.title}
+          </h1>
           <div className="flex items-center gap-3">
-            <span className={`inline-flex items-center rounded-full px-3 py-0.5 text-sm font-semibold ${typeColors[snippet.type] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'}`}>
+            <span
+              className={`inline-flex items-center rounded-full px-3 py-0.5 text-sm font-semibold ${typeColors[snippet.type] || 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'}`}
+            >
               {snippet.type}
             </span>
           </div>
@@ -34,11 +42,17 @@ export default async function SnippetDetails({ params }: { params: Promise<{ id:
 
         <div className="mt-4 flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
           <div>
-            Created: <span className="font-medium text-gray-700 dark:text-gray-300">{formatDateTime(snippet.createdAt)}</span>
+            Created:{' '}
+            <span className="font-medium text-gray-700 dark:text-gray-300">
+              {formatDateTime(snippet.createdAt)}
+            </span>
           </div>
           {snippet.updatedAt !== snippet.createdAt && (
             <div>
-              Updated: <span className="font-medium text-gray-700 dark:text-gray-300">{formatDateTime(snippet.updatedAt)}</span>
+              Updated:{' '}
+              <span className="font-medium text-gray-700 dark:text-gray-300">
+                {formatDateTime(snippet.updatedAt)}
+              </span>
             </div>
           )}
         </div>

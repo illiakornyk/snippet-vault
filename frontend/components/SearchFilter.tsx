@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState } from 'react';
@@ -16,7 +16,6 @@ export function SearchFilter() {
     if (q.trim()) params.set('q', q.trim());
     if (tag.trim()) params.set('tag', tag.trim());
 
-
     router.push(`/?${params.toString()}`);
   };
 
@@ -27,9 +26,15 @@ export function SearchFilter() {
   };
 
   return (
-    <form onSubmit={handleSearch} className="mb-6 bg-white dark:bg-gray-950 p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+    <form
+      onSubmit={handleSearch}
+      className="mb-6 bg-white dark:bg-gray-950 p-4 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm grid grid-cols-1 md:grid-cols-12 gap-4 items-end"
+    >
       <div className="md:col-span-5 lg:col-span-6">
-        <label htmlFor="search" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label
+          htmlFor="search"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+        >
           Search
         </label>
         <input
@@ -42,7 +47,10 @@ export function SearchFilter() {
         />
       </div>
       <div className="md:col-span-4 lg:col-span-4">
-        <label htmlFor="tag" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label
+          htmlFor="tag"
+          className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+        >
           Filter by Tag
         </label>
         <input

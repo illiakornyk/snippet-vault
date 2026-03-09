@@ -1,11 +1,20 @@
-"use client";
+'use client';
 
-import { api, Snippet, SnippetType } from '@/lib/api';
-import { SnippetForm, SnippetFormData, SnippetSubmitData, SnippetFormSkeleton } from '@/components/SnippetForm';
+import { api, Snippet } from '@/lib/api';
+import {
+  SnippetForm,
+  SnippetFormData,
+  SnippetSubmitData,
+  SnippetFormSkeleton,
+} from '@/components/SnippetForm';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-export default function EditSnippet({ params }: { params: Promise<{ id: string }> }) {
+export default function EditSnippet({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -24,8 +33,10 @@ export default function EditSnippet({ params }: { params: Promise<{ id: string }
           tags: snippet.tags ? snippet.tags.join(', ') : '',
           type: snippet.type as Snippet['type'],
         });
-      } catch (err: unknown) {
-        setError('Failed to load snippet for editing. It may have been deleted.');
+      } catch {
+        setError(
+          'Failed to load snippet for editing. It may have been deleted.',
+        );
       } finally {
         setLoading(false);
       }
