@@ -1,7 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { SnippetType } from '../enums/snippet-type.enum';
-import { MAX_CONTENT_LENGTH, MAX_TITLE_LENGTH } from '../constants/snippet.constants';
+import {
+  MAX_CONTENT_LENGTH,
+  MAX_TITLE_LENGTH,
+} from '../constants/snippet.constants';
 
 export type SnippetDocument = HydratedDocument<Snippet>;
 

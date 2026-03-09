@@ -5,9 +5,18 @@ import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
+  const requiredEnvs = ['PORT', 'MONGODB_URI', 'FRONTEND_URL'];
+  const missingEnvs = requiredEnvs.filter((env) => !process.env[env]);
+
+  if (missingEnvs.length > 0) {
+    throw new Error(
+      `Missing required environment variables: ${missingEnvs.join(', ')}`,
+    );
+  }
+
   const app = await NestFactory.create(AppModule);
   const configService = app.get(ConfigService);
-  const frontendUrl = configService.get<string>('FRONTEND_URL') || 'http://localhost:3000';
+  const frontendUrl = configService.get<string>('FRONTEND_URL');
 
   app.enableCors({
     origin: frontendUrl,
@@ -26,4 +35,4 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+void bootstrap();

@@ -3,7 +3,9 @@ import { IsInt, IsOptional, IsString, Min } from 'class-validator';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class QuerySnippetDto {
-  @ApiPropertyOptional({ description: 'Text search query for title and content' })
+  @ApiPropertyOptional({
+    description: 'Text search query for title and content',
+  })
   @IsString()
   @IsOptional()
   q?: string;
@@ -13,7 +15,10 @@ export class QuerySnippetDto {
   @IsOptional()
   tag?: string;
 
-  @ApiPropertyOptional({ description: 'Page number for pagination', default: 1 })
+  @ApiPropertyOptional({
+    description: 'Page number for pagination',
+    default: 1,
+  })
   @Type(() => Number)
   @IsInt()
   @Min(1)

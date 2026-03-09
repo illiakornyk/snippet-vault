@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { isValidObjectId, Model } from 'mongoose';
 import { CreateSnippetDto } from './dto/create-snippet.dto';
@@ -10,7 +14,8 @@ import { PaginatedResult } from './interfaces/paginated-result.interface';
 @Injectable()
 export class SnippetsService {
   constructor(
-    @InjectModel(Snippet.name) private readonly snippetModel: Model<SnippetDocument>,
+    @InjectModel(Snippet.name)
+    private readonly snippetModel: Model<SnippetDocument>,
   ) {}
 
   async create(createSnippetDto: CreateSnippetDto): Promise<Snippet> {
@@ -37,7 +42,12 @@ export class SnippetsService {
     }
 
     const [data, total] = await Promise.all([
-      this.snippetModel.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).exec(),
+      this.snippetModel
+        .find(filter)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .exec(),
       this.snippetModel.countDocuments(filter).exec(),
     ]);
 
@@ -56,7 +66,6 @@ export class SnippetsService {
     };
   }
 
-
   async findOne(id: string): Promise<Snippet> {
     this.validateObjectId(id);
     const snippet = await this.snippetModel.findById(id).exec();
@@ -66,13 +75,19 @@ export class SnippetsService {
     return snippet;
   }
 
-  async update(id: string, updateSnippetDto: UpdateSnippetDto): Promise<Snippet> {
+  async update(
+    id: string,
+    updateSnippetDto: UpdateSnippetDto,
+  ): Promise<Snippet> {
     this.validateObjectId(id);
     if (updateSnippetDto.tags) {
       updateSnippetDto.tags = [...new Set(updateSnippetDto.tags)];
     }
     const existingSnippet = await this.snippetModel
-      .findByIdAndUpdate(id, updateSnippetDto, { returnDocument: 'after', runValidators: true })
+      .findByIdAndUpdate(id, updateSnippetDto, {
+        returnDocument: 'after',
+        runValidators: true,
+      })
       .exec();
 
     if (!existingSnippet) {
@@ -95,5 +110,4 @@ export class SnippetsService {
       throw new BadRequestException(`Invalid ID format: ${id}`);
     }
   }
-
 }
