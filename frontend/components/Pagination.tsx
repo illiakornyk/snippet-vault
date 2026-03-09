@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { PageNav } from './PageNav';
 
 export interface PaginationProps {
   currentPage: number;
@@ -11,39 +12,19 @@ export interface PaginationProps {
   hasNextPage: boolean;
 }
 
-function PageNav({
-  currentPage,
-  totalPages,
-  hasPreviousPage,
-  hasNextPage,
-  createPageURL,
-  router,
-}: any) {
-  return (
-    <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 w-full sm:w-auto mt-4 sm:mt-0">
-      <button
-        onClick={() => router.push(createPageURL(currentPage - 1))}
-        disabled={!hasPreviousPage}
-        className="relative inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full sm:w-auto"
-      >
-        Previous
-      </button>
 
-      <div className="flex items-center justify-center gap-1 hidden sm:flex">
-         <span className="px-3 py-2 text-sm text-gray-700 dark:text-gray-300">
-           Page <span className="font-semibold">{currentPage}</span> of {totalPages}
-         </span>
-      </div>
 
-      <button
-         onClick={() => router.push(createPageURL(currentPage + 1))}
-         disabled={!hasNextPage}
-         className="relative inline-flex items-center justify-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors w-full sm:w-auto"
-      >
-        Next
-      </button>
-    </div>
-  );
+const PAGE_LIMITS = [6, 9, 12, 15, 18];
+
+function usePaginationURL() {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+
+  return (pageNumber: number | string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('page', pageNumber.toString());
+    return `${pathname}?${params.toString()}`;
+  };
 }
 
 export function PaginationTop({
@@ -57,16 +38,11 @@ export function PaginationTop({
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-
-  const createPageURL = (pageNumber: number | string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', pageNumber.toString());
-    return `${pathname}?${params.toString()}`;
-  };
+  const createPageURL = usePaginationURL();
 
   const handleLimitChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const newLimit = e.target.value;
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     params.set('limit', newLimit);
     params.set('page', '1');
     router.push(`${pathname}?${params.toString()}`);
@@ -93,11 +69,11 @@ export function PaginationTop({
             onChange={handleLimitChange}
             className="text-sm rounded-md border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 py-1 pl-2 pr-6 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
           >
-            <option value="6">6</option>
-            <option value="9">9</option>
-            <option value="12">12</option>
-            <option value="15">15</option>
-            <option value="18">18</option>
+            {PAGE_LIMITS.map((limitValue) => (
+              <option key={limitValue} value={limitValue}>
+                {limitValue}
+              </option>
+            ))}
           </select>
         </div>
       </div>
@@ -109,7 +85,6 @@ export function PaginationTop({
           hasPreviousPage={hasPreviousPage}
           hasNextPage={hasNextPage}
           createPageURL={createPageURL}
-          router={router}
         />
       )}
     </div>
@@ -123,15 +98,7 @@ export function PaginationBottom({
   hasPreviousPage,
   hasNextPage,
 }: PaginationProps) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-
-  const createPageURL = (pageNumber: number | string) => {
-    const params = new URLSearchParams(searchParams);
-    params.set('page', pageNumber.toString());
-    return `${pathname}?${params.toString()}`;
-  };
+  const createPageURL = usePaginationURL();
 
   if (total === 0 || totalPages <= 1) return null;
 
@@ -143,7 +110,6 @@ export function PaginationBottom({
         hasPreviousPage={hasPreviousPage}
         hasNextPage={hasNextPage}
         createPageURL={createPageURL}
-        router={router}
       />
     </div>
   );
