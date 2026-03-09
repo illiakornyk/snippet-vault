@@ -1,7 +1,7 @@
 "use client";
 
 import { api, Snippet, SnippetType } from '@/lib/api';
-import { SnippetForm, SnippetFormData, SnippetSubmitData } from '@/components/SnippetForm';
+import { SnippetForm, SnippetFormData, SnippetSubmitData, SnippetFormSkeleton } from '@/components/SnippetForm';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -41,14 +41,7 @@ export default function EditSnippet({ params }: { params: Promise<{ id: string }
   };
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center py-20">
-        <div className="animate-pulse flex flex-col items-center">
-          <div className="h-8 w-32 bg-gray-200 dark:bg-gray-800 rounded mb-4"></div>
-          <div className="h-4 w-48 bg-gray-200 dark:bg-gray-800 rounded"></div>
-        </div>
-      </div>
-    );
+    return <SnippetFormSkeleton heading="Edit Snippet" />;
   }
 
   return (

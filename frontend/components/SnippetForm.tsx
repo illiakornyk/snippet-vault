@@ -168,3 +168,37 @@ export function SnippetForm({
     </div>
   );
 }
+
+export function SnippetFormSkeleton({ heading }: { heading: string }) {
+  return (
+    <div className="max-w-2xl mx-auto animate-pulse">
+      <h1 className="text-3xl font-bold mb-6">{heading}</h1>
+      <div className="space-y-6">
+        <div>
+          <div className="h-5 w-16 bg-gray-200 dark:bg-gray-800 rounded mb-2"></div>
+          <div className="h-9 w-full bg-gray-100 dark:bg-gray-900 rounded-md"></div>
+        </div>
+
+        <div>
+          <div className="h-5 w-16 bg-gray-200 dark:bg-gray-800 rounded mb-2"></div>
+          <div className="h-9 w-full bg-gray-100 dark:bg-gray-900 rounded-md"></div>
+        </div>
+
+        <div>
+          <div className="h-5 w-48 bg-gray-200 dark:bg-gray-800 rounded mb-2"></div>
+          <div className="h-9 w-full bg-gray-100 dark:bg-gray-900 rounded-md"></div>
+        </div>
+
+        <div>
+          <div className="h-5 w-20 bg-gray-200 dark:bg-gray-800 rounded mb-2"></div>
+          <div className="h-48 w-full bg-gray-100 dark:bg-gray-900 rounded-md"></div>
+        </div>
+
+        <div className="flex justify-end gap-4 border-t border-gray-200 dark:border-gray-800 pt-6">
+          <div className="h-9 w-20 bg-gray-200 dark:bg-gray-800 rounded-md"></div>
+          <div className="h-9 w-32 bg-gray-200 dark:bg-gray-800 rounded-md"></div>
+        </div>
+      </div>
+    </div>
+  );
+}

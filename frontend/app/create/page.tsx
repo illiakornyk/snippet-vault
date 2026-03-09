@@ -1,6 +1,6 @@
 "use client";
 
-import { api, SnippetType } from '@/lib/api';
+import { api } from '@/lib/api';
 import { SnippetForm, SnippetSubmitData } from '@/components/SnippetForm';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
