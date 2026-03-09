@@ -28,6 +28,15 @@ interface SnippetFormProps {
   setError: (error: string) => void;
 }
 
+function parseTags(tagsString: string): string[] {
+  return Array.from(new Set(
+    tagsString
+      .split(',')
+      .map((t) => t.trim())
+      .filter((t) => t.length > 0)
+  ));
+}
+
 export function SnippetForm({
   initialData,
   onSubmit,
@@ -57,10 +66,7 @@ export function SnippetForm({
     setSubmitting(true);
 
     try {
-      const tagArray = tags
-        .split(',')
-        .map((t) => t.trim())
-        .filter((t) => t.length > 0);
+      const tagArray = parseTags(tags);
 
       await onSubmit({
         title: title.trim(),

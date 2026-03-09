@@ -21,7 +21,7 @@ export default async function Home({
   try {
     snippetsResult = await api.getSnippets({ q, tag, page, limit });
   } catch (error) {
-    errorMsg = 'Make sure the backend is running!';
+    errorMsg = 'Cannot reach server';
   }
 
   const snippets = snippetsResult?.data || [];
