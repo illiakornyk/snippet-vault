@@ -1,5 +1,5 @@
 export enum SnippetType {
   NOTE = 'note',
-  CODE = 'code',
+  LINK = 'link',
   COMMAND = 'command',
 }
