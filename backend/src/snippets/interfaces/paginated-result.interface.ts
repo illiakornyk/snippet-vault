@@ -1,11 +1,11 @@
 export interface PaginatedResult<T> {
-  data: T[];
-  meta: {
-    total: number;
-    page: number;
-    limit: number;
-    totalPages: number;
-    hasNextPage: boolean;
-    hasPreviousPage: boolean;
+  readonly data: T[];
+  readonly meta: {
+    readonly total: number;
+    readonly page: number;
+    readonly limit: number;
+    readonly totalPages: number;
+    readonly hasNextPage: boolean;
+    readonly hasPreviousPage: boolean;
   };
 }

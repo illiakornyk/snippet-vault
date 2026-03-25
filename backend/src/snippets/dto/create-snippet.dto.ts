@@ -25,7 +25,7 @@ export class CreateSnippetDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(MAX_TITLE_LENGTH)
-  title: string;
+  readonly title: string;
 
   @ApiProperty({
     example: 'Some text content',
@@ -35,7 +35,7 @@ export class CreateSnippetDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(MAX_CONTENT_LENGTH)
-  content: string;
+  readonly content: string;
 
   @ApiPropertyOptional({
     example: ['typescript', 'nestjs'],
@@ -55,5 +55,5 @@ export class CreateSnippetDto {
   })
   @IsEnum(SnippetType)
   @IsNotEmpty()
-  type: SnippetType;
+  readonly type: SnippetType;
 }

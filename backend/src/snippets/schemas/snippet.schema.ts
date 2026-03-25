@@ -11,16 +11,16 @@ export type SnippetDocument = HydratedDocument<Snippet>;
 @Schema({ timestamps: true })
 export class Snippet {
   @Prop({ required: true, maxlength: MAX_TITLE_LENGTH, trim: true })
-  title: string;
+  readonly title: string;
 
   @Prop({ required: true, maxlength: MAX_CONTENT_LENGTH })
-  content: string;
+  readonly content: string;
 
   @Prop({ type: [String], default: [], index: true })
-  tags: string[];
+  readonly tags: string[];
 
   @Prop({ required: true, enum: SnippetType })
-  type: SnippetType;
+  readonly type: SnippetType;
 }
 
 export const SnippetSchema = SchemaFactory.createForClass(Snippet);

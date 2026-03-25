@@ -8,12 +8,12 @@ export class QuerySnippetDto {
   })
   @IsString()
   @IsOptional()
-  q?: string;
+  readonly q?: string;
 
   @ApiPropertyOptional({ description: 'Filter snippets by a specific tag' })
   @IsString()
   @IsOptional()
-  tag?: string;
+  readonly tag?: string;
 
   @ApiPropertyOptional({
     description: 'Page number for pagination',
@@ -23,12 +23,12 @@ export class QuerySnippetDto {
   @IsInt()
   @Min(1)
   @IsOptional()
-  page?: number;
+  readonly page?: number;
 
   @ApiPropertyOptional({ description: 'Number of items per page', default: 10 })
   @Type(() => Number)
   @IsInt()
   @Min(1)
   @IsOptional()
-  limit?: number;
+  readonly limit?: number;
 }
