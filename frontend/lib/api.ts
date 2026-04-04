@@ -25,13 +25,15 @@ export interface PaginatedSnippets {
   };
 }
 
+export interface GetSnippetsParams {
+  q?: string;
+  tag?: string;
+  page?: number;
+  limit?: number;
+}
+
 export const api = {
-  async getSnippets(params?: {
-    q?: string;
-    tag?: string;
-    page?: number;
-    limit?: number;
-  }) {
+  async getSnippets(params?: GetSnippetsParams) {
     const url = new URL(API_URL);
     if (params) {
       Object.entries(params).forEach(([key, value]) => {

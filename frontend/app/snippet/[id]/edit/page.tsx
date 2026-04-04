@@ -22,26 +22,38 @@ export default function EditSnippet({
   const [initialData, setInitialData] = useState<SnippetFormData | undefined>();
 
   useEffect(() => {
+    let ignore = false;
+
     async function loadSnippet() {
       try {
         const resolvedParams = await params;
-        setId(resolvedParams.id);
         const snippet = await api.getSnippet(resolvedParams.id);
-        setInitialData({
-          title: snippet.title,
-          content: snippet.content,
-          tags: snippet.tags ? snippet.tags.join(', ') : '',
-          type: snippet.type as Snippet['type'],
-        });
+
+        if (!ignore) {
+          setId(resolvedParams.id);
+          setInitialData({
+            title: snippet.title,
+            content: snippet.content,
+            tags: snippet.tags ? snippet.tags.join(', ') : '',
+            type: snippet.type as Snippet['type'],
+          });
+        }
       } catch {
-        setError(
-          'Failed to load snippet for editing. It may have been deleted.',
-        );
+        if (!ignore) {
+          setError('Failed to load snippet for editing.');
+        }
       } finally {
-        setLoading(false);
+        if (!ignore) {
+          setLoading(false);
+        }
       }
     }
+
     loadSnippet();
+
+    return () => {
+      ignore = true;
+    };
   }, [params]);
 
   const handleUpdate = async (data: SnippetSubmitData) => {

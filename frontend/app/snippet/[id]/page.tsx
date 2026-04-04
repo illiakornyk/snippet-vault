@@ -67,16 +67,7 @@ export default async function SnippetDetails({
 
         {snippet.tags && snippet.tags.length > 0 && (
           <div className="px-6 py-4 bg-gray-50 border-t border-gray-200 dark:bg-gray-900/50 dark:border-gray-800">
-            <div className="flex flex-wrap gap-2">
-              {snippet.tags.map((tag: string) => (
-                <span
-                  key={tag}
-                  className="inline-flex items-center rounded-md bg-white px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
+            <div className="flex flex-wrap gap-2">{renderTags(snippet.tags)}</div>
           </div>
         )}
       </div>
@@ -93,3 +84,15 @@ export default async function SnippetDetails({
     </div>
   );
 }
+
+function renderTags(tags: string[]) {
+  return tags.map((tag: string) => (
+    <span
+      key={tag}
+      className="inline-flex items-center rounded-md bg-white px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700"
+    >
+      #{tag}
+    </span>
+  ));
+}
+
