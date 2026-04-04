@@ -31,23 +31,26 @@ export class SnippetsService {
     const skip = (page - 1) * limit;
 
     const filter: Record<string, any> = {};
+    const normalizedQuery = q?.trim();
 
-    if (q) {
-      const regex = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-      filter.$or = [{ title: regex }, { content: regex }];
+    if (normalizedQuery) {
+      filter.$text = { $search: normalizedQuery };
     }
 
     if (tag) {
       filter.tags = tag;
     }
 
+    const findQuery = this.snippetModel.find(filter);
+
+    if (normalizedQuery) {
+      findQuery.sort({ score: { $meta: 'textScore' } });
+    } else {
+      findQuery.sort({ createdAt: -1 });
+    }
+
     const [data, total] = await Promise.all([
-      this.snippetModel
-        .find(filter)
-        .sort({ createdAt: -1 })
-        .skip(skip)
-        .limit(limit)
-        .exec(),
+      findQuery.skip(skip).limit(limit).exec(),
       this.snippetModel.countDocuments(filter).exec(),
     ]);
 
